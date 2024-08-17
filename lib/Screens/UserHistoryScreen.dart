@@ -14,10 +14,11 @@ class UserHistoryScreen extends StatefulWidget {
 }
 
 class _UserHistoryScreenState extends State<UserHistoryScreen> {
+
   @override
   Widget build(BuildContext context) {
-    Hive.openBox("BMIHistory");
-  final provider = Provider.of<HomeScreenProvider>(context);
+   final provider = Provider.of<HomeScreenProvider>(context);
+   print("Lenght ${provider.bmihistoryitems.length}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF21232F),

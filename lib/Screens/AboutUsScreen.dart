@@ -23,19 +23,22 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
           style: AppStyles.titlestyle,
         ),
       ),
-      body:const Column(
-        children: [
-          ExpansionTile(title:Text("Who We Are?",style:AppStyles.aboutusquestionstyle),trailing: Icon(Icons.add),children: [
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal:14.0),
-                child: Text(AppStyles.AboutText))
-          ],),
-          ExpansionTile(title:Text("About App ",style:AppStyles.aboutusquestionstyle,),trailing: Icon(Icons.add),children: [
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0),
-                child: Text(AppStyles.aboutapp))
-          ],),
-        ],
+      body:SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: const Column(
+          children: [
+            ExpansionTile(title:Text("Who We Are?",style:AppStyles.aboutusquestionstyle),trailing: Icon(Icons.add),children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal:14.0),
+                  child: Text(AppStyles.AboutText))
+            ],),
+            ExpansionTile(title:Text("About App ",style:AppStyles.aboutusquestionstyle,),trailing: Icon(Icons.add),children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Text(AppStyles.aboutapp))
+            ],),
+          ],
+        ),
       ),
     );
   }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1577961264",
+    "project_id": "bmi-calculator-a3ddc",
+    "storage_bucket": "bmi-calculator-a3ddc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1577961264:android:e82ace01cb738f6f47aaf5",
+        "android_client_info": {
+          "package_name": "appveda.bmi.bmicalculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZsvFhji4-YWUwFfnALzVBbkcMEoheS4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

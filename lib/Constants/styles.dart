@@ -11,6 +11,7 @@ class AppStyles{
   static final historybmistyle = TextStyle(fontSize: 12,fontWeight: FontWeight.w800,color: Colors.white70);
 
   static const aboutusquestionstyle =TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black);
+  static const premiumstyle =TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white);
 
   ///ABOUT US CONSTANTS
   static const AboutText ="Hey Users , Hope You Are Doing Well \nWe Are , AppVeda Software , Cross Platform Mobile App Development Company Based In Nagpur , Maharashtra , India . Providing Cross Platform Mobile App Development Services as Per User Needs";

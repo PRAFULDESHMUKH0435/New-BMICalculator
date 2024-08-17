@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../Constants/CustomBottomSheet.dart';
 import '../Constants/WeightSelector.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CustomRangeSlider(),
                 ),
 
-                ///Weight and Row
+                ///Weight and Age Row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -104,7 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUsScreen()));
                }
                else if(provider.currentscreenidx==1){
+                 /// Show Model Bottom Sheet
                  provider.CalculateUserBMI(context);
+                 showModalBottomSheet(context: context, builder: (context){
+                   return CustomBottomSheet();
+                 });
                }else{
                  Navigator.push(context, MaterialPageRoute(builder: (context)=>UserHistoryScreen()));
                }
@@ -112,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
             notchBottomBarController: NotchBottomBarController(
                 index: provider.currentscreenidx
             ),
-            bottomBarItems: [
+            bottomBarItems:const [
               const BottomBarItem(
                 inActiveItem: Icon(
                   Icons.person_outline,
@@ -149,6 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 
   Future<bool> _onBackPressed() async {
     return (await showDialog(

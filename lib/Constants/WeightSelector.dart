@@ -79,7 +79,7 @@ class _WeightSelectorState extends State<WeightSelector> {
           },
           childDelegate: ListWheelChildBuilderDelegate(
             builder: (context, index) {
-              if (index < 0 || index >= 120) {
+              if (index < 0 || index >= 200) {
                 return null; // Limit the range to 200 items (1 kg to 200 kg)
               }
               return Container(
@@ -106,7 +106,7 @@ class _WeightSelectorState extends State<WeightSelector> {
                 ),
               );
             },
-            childCount: 120, // Number of items (1 kg to 200 kg)
+            childCount: 200, // Number of items (1 kg to 200 kg)
           ),
         ),
       ),
