@@ -1,7 +1,9 @@
 import 'package:bmicalculator/Constants/styles.dart';
+import 'package:bmicalculator/Providers/HomeScreenProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({super.key});
@@ -13,6 +15,7 @@ class AboutUsScreen extends StatefulWidget {
 class _AboutUsScreenState extends State<AboutUsScreen> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<HomeScreenProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF21232F),
@@ -25,14 +28,24 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       ),
       body:SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: const Column(
+        child: Column(
           children: [
-            ExpansionTile(title:Text("Who We Are?",style:AppStyles.aboutusquestionstyle),trailing: Icon(Icons.add),children: [
+            ExpansionTile(
+              onExpansionChanged: (bool isexpanded){
+                provider.isexpandedwhoweare=!provider.isexpandedwhoweare;
+              },
+              title:Text("Who We Are?",style:AppStyles.aboutusquestionstyle),
+              trailing:provider.isexpandedwhoweare?Icon(Icons.remove): Icon(Icons.add),children: [
               Padding(
                   padding: EdgeInsets.symmetric(horizontal:14.0),
                   child: Text(AppStyles.AboutText))
             ],),
-            ExpansionTile(title:Text("About App ",style:AppStyles.aboutusquestionstyle,),trailing: Icon(Icons.add),children: [
+            ExpansionTile(
+              onExpansionChanged: (bool isexpanded){
+                provider.isexpandedaboutapp=!provider.isexpandedaboutapp;
+              },
+              title:Text("About App ",style:AppStyles.aboutusquestionstyle,),
+              trailing: provider.isexpandedaboutapp?Icon(Icons.remove): Icon(Icons.add),children: [
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.0),
                   child: Text(AppStyles.aboutapp))

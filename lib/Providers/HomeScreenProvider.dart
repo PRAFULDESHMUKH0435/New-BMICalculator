@@ -1,10 +1,31 @@
 import 'dart:math';
 import 'package:bmicalculator/Hive/UserData.dart';
+import 'package:bmicalculator/Model/UserDataModel.dart';
+import 'package:bmicalculator/Screens/DietPlansScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 
 class HomeScreenProvider with ChangeNotifier{
+
+  ///About Us Screen Expanded
+  bool _isexpandedwhoweare=false;
+  bool get isexpandedwhoweare => _isexpandedwhoweare;
+  set isexpandedwhoweare(bool value) {
+    _isexpandedwhoweare = value;
+    notifyListeners();
+  }
+
+  bool _isexpandedaboutapp=false;
+  bool get isexpandedaboutapp => _isexpandedaboutapp;
+  set isexpandedaboutapp(bool value) {
+    _isexpandedaboutapp = value;
+    notifyListeners();
+  }
+
+  ///
+
 
   /// BMI History Items
   var box = Hive.box("BMIHistory");
@@ -84,22 +105,71 @@ class HomeScreenProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  /// Decrement User Age
-  DecrementUserAge(){
-    if(userage>0){
-      _userage=_userage-1;
-      notifyListeners();
+
+  /// User Age
+  int _selectedAge =5;
+  int get selectedAge => _selectedAge;
+  set selectedAge(int value) {
+    _selectedAge = value;
+    notifyListeners();
+  }
+
+  InterstitialAd? _interstitialAd;
+  bool _isAdLoaded = false;
+
+  void loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-6177165685902348/4534884298', // Your Interstitial Ad Unit ID
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          _interstitialAd = ad;
+          _isAdLoaded = true;
+          print('Ad Loaded');
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('Ad Failed to Load: $error');
+          _isAdLoaded = false;
+        },
+      ),
+    );
+  }
+
+
+  void ShowAds(BuildContext context,UserDataModel model) {
+    if (_isAdLoaded && _interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (InterstitialAd ad) {
+          print('Ad Dismissed');
+          ad.dispose(); // Dispose of the ad after showing
+          _moveToNextScreen(context,model); // Navigate to the next screen
+        },
+        onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+          print('Ad Failed to Show: $error');
+          ad.dispose();
+          _moveToNextScreen(context,model); // Navigate to the next screen in case of error
+        },
+      );
+      _interstitialAd!.show();
+    } else {
+      print('Ad Not Ready');
+      _moveToNextScreen(context,model); // If the ad is not ready, move to the next screen
     }
   }
 
-  /// Increment User Age
-  IncrementUserAge(){
-    if(userage<120){
-      _userage=_userage+1;
-      notifyListeners();
-    }
-  }
+  void _moveToNextScreen(BuildContext context,UserDataModel model) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>Dietplansscreen(
+          age: model.age,
+          BMI: model.BMI,
+          height: model.height,
+          result: model.result,
+          weight: model.weight,
+        )),
+      );
 
+  }
 
   CalculateUserBMI(BuildContext context){
     double WeightInKg = selectedWeight.toDouble();
@@ -202,5 +272,6 @@ class HomeScreenProvider with ChangeNotifier{
     notifyListeners();
     return BMISuggestions;
   }
+
 
 }

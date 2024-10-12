@@ -25,6 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   @override
+  void initState() {
+    // TODO: implement initState
+    HomeScreenProvider().loadInterstitialAd();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeScreenProvider>(context);
     return WillPopScope(

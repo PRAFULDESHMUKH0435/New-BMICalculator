@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'Hive/UserData.dart';
@@ -14,6 +16,9 @@ Future main() async{
 
   /// Firebase Initialization
   await WidgetsFlutterBinding.ensureInitialized();
+
+  unawaited(MobileAds.instance.initialize());
+
   Platform.isAndroid?
   await Firebase.initializeApp(
     options: FirebaseOptions(

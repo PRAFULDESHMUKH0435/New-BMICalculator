@@ -1,9 +1,9 @@
+import 'package:bmicalculator/Model/UserDataModel.dart';
 import 'package:bmicalculator/Providers/HomeScreenProvider.dart';
+import 'package:bmicalculator/Screens/DietPlansScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../Screens/DietPlans.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({super.key});
@@ -63,7 +63,7 @@ class CustomBottomSheet extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Height : ${provider.selectedHeight.toDouble()} Ft | Weight : ${provider.selectedWeight} kilograms',
+              'Height : ${provider.selectedHeight.toStringAsFixed(2)} Ft | Weight : ${provider.selectedWeight} kilograms',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -82,7 +82,24 @@ class CustomBottomSheet extends StatelessWidget {
             SizedBox(height: 20),
             GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DietPlans(BMICategory: provider.bmicategory,)));
+
+                  UserDataModel usermodel = UserDataModel(
+                      BMI: provider.BMI.toInt().toString(),
+                      height: provider.selectedHeight.toDouble().toStringAsFixed(2),
+                      weight: provider.selectedWeight.toDouble().toString(),
+                      age: provider.selectedAge.toDouble().toString(),
+                      result: provider.bmicategory);
+
+                  HomeScreenProvider().ShowAds(context,usermodel);
+
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                  // // BotScreen()));
+                  //     Dietplansscreen(
+                  //         BMI: provider.BMI.toInt().toString(),
+                  //         height: provider.selectedHeight.toDouble().toStringAsFixed(2),
+                  //         weight: provider.selectedWeight.toDouble().toString(),
+                  //         age: provider.selectedAge.toDouble().toString(),
+                  //         result: provider.bmicategory)));
                 },
                 child: Text("Check Out Diet Plans ->",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),))
           ],
