@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomLoadingIcon extends StatefulWidget {
+  const CustomLoadingIcon({super.key});
+
   @override
   _CustomLoadingIconState createState() => _CustomLoadingIconState();
 }

@@ -25,12 +25,12 @@ class _MaleAndFemaleRowState extends State<MaleAndFemaleRow> {
               child: Container(
                 height: 150,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF717880)),
-                  borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  color:provider.ismale?Color(0xFF043FCB) : Color(0xFF2D2D37),
+                  border: Border.all(color: const Color(0xFF717880)),
+                  borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+                  color:provider.ismale?const Color(0xFF043FCB) : const Color(0xFF2D2D37),
                 ),
-                margin: EdgeInsets.all(12.0),
-                padding: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: <Widget>[
                     Image.asset(
@@ -38,8 +38,8 @@ class _MaleAndFemaleRowState extends State<MaleAndFemaleRow> {
                       width: 50,
                       height: 50,
                     ),
-                    SizedBox(width: 10), // Spacing between image and text
-                    Text(
+                    const SizedBox(width: 10), // Spacing between image and text
+                    const Text(
                       'Male',
                       style: AppStyles.maleandfemaletextstyle,
                     ),
@@ -55,12 +55,12 @@ class _MaleAndFemaleRowState extends State<MaleAndFemaleRow> {
               },
               child: Container(
                 height: 150,
-                margin: EdgeInsets.all(12.0),
-                padding: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF717880)),
-                  borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  color: provider.ismale?Color(0xFF2D2D37): Color(0xFF043FCB),
+                  border: Border.all(color: const Color(0xFF717880)),
+                  borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+                  color: provider.ismale?const Color(0xFF2D2D37): const Color(0xFF043FCB),
                 ),
                 child: Row(
                   children: <Widget>[
@@ -69,8 +69,8 @@ class _MaleAndFemaleRowState extends State<MaleAndFemaleRow> {
                       width: 50,
                       height: 50,
                     ),
-                    SizedBox(width: 10), // Spacing between image and text
-                    Text(
+                    const SizedBox(width: 10), // Spacing between image and text
+                    const Text(
                       'Female',
                       style: AppStyles.maleandfemaletextstyle,
                     ),

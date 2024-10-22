@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -15,13 +14,13 @@ import 'package:firebase_core/firebase_core.dart';
 Future main() async{
 
   /// Firebase Initialization
-  await WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-  unawaited(MobileAds.instance.initialize());
+  await (MobileAds.instance.initialize());
 
   Platform.isAndroid?
   await Firebase.initializeApp(
-    options: FirebaseOptions(
+    options: const FirebaseOptions(
       apiKey: "AIzaSyBZsvFhji4-YWUwFfnALzVBbkcMEoheS4k",		// Current Key    (App Level googleservices.json)
       appId: "1:1577961264:android:e82ace01cb738f6f47aaf5", // mobilesdk_app_id  (App Level googleservices.json)
       messagingSenderId: "1577961264",					            // project_number	 (App Level googleservices.json)
@@ -41,7 +40,7 @@ Future main() async{
   Hive.init(directory.path);
   Hive.registerAdapter(UserDataAdapter());
   await Hive.openBox("BMIHistory");
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -51,7 +50,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context)=>HomeScreenProvider(),
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeScreen(),
       ),

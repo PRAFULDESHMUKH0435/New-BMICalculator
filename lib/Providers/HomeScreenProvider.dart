@@ -2,12 +2,12 @@ import 'dart:math';
 import 'package:bmicalculator/Hive/UserData.dart';
 import 'package:bmicalculator/Model/UserDataModel.dart';
 import 'package:bmicalculator/Screens/DietPlansScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 
 class HomeScreenProvider with ChangeNotifier{
+  
 
   ///About Us Screen Expanded
   bool _isexpandedwhoweare=false;
@@ -114,62 +114,72 @@ class HomeScreenProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  InterstitialAd? _interstitialAd;
+  InterstitialAd? _interstitialAd ;
   bool _isAdLoaded = false;
+  bool get isAdLoaded => _isAdLoaded;
+  set isAdLoaded(bool value) {
+    _isAdLoaded = value;
+    notifyListeners();
+  }
 
-  void loadInterstitialAd() {
+  // void _moveToNextScreen(BuildContext context,UserDataModel model) {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) =>Dietplansscreen(
+  //         age: model.age,
+  //         BMI: model.BMI,
+  //         height: model.height,
+  //         result: model.result,
+  //         weight: model.weight,
+  //       )),
+  //     );
+  // }
+
+void loadInterstitialAd(){
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-6177165685902348/4534884298', // Your Interstitial Ad Unit ID
-      request: const AdRequest(),
+      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Test ad unit ID
+      request: AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
           _interstitialAd = ad;
           _isAdLoaded = true;
           print('Ad Loaded');
+          notifyListeners();
         },
         onAdFailedToLoad: (LoadAdError error) {
           print('Ad Failed to Load: $error');
           _isAdLoaded = false;
+          notifyListeners();
         },
       ),
     );
   }
 
 
-  void ShowAds(BuildContext context,UserDataModel model) {
+  void showInterstitialAd() {
+    print("Inside ShowAds and AdLoaded ? ${_interstitialAd?.responseInfo.toString()}");
     if (_isAdLoaded && _interstitialAd != null) {
       _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (InterstitialAd ad) {
+          print("Showing Ad");
           print('Ad Dismissed');
           ad.dispose(); // Dispose of the ad after showing
-          _moveToNextScreen(context,model); // Navigate to the next screen
+          loadInterstitialAd(); // Load another ad
         },
         onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
           print('Ad Failed to Show: $error');
           ad.dispose();
-          _moveToNextScreen(context,model); // Navigate to the next screen in case of error
+          loadInterstitialAd(); // Load another ad in case of error
         },
       );
       _interstitialAd!.show();
     } else {
       print('Ad Not Ready');
-      _moveToNextScreen(context,model); // If the ad is not ready, move to the next screen
+      // You can choose to navigate to the next screen here if needed
     }
   }
 
-  void _moveToNextScreen(BuildContext context,UserDataModel model) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) =>Dietplansscreen(
-          age: model.age,
-          BMI: model.BMI,
-          height: model.height,
-          result: model.result,
-          weight: model.weight,
-        )),
-      );
 
-  }
 
   CalculateUserBMI(BuildContext context){
     double WeightInKg = selectedWeight.toDouble();
@@ -183,22 +193,22 @@ class HomeScreenProvider with ChangeNotifier{
 
     // Calculate BMI
     debugPrint("Gender ${_ismale?"Male":"Female"}");
-    debugPrint("Height ${selectedHeight}");
-    debugPrint("Weight ${_selectedWeight}");
-    debugPrint("Age ${userage}");
+    debugPrint("Height $selectedHeight");
+    debugPrint("Weight $_selectedWeight");
+    debugPrint("Age $userage");
     double bmi = WeightInKg / pow(selectedHeight*0.3048,2);
     bmi.toStringAsFixed(1);
     BMI=bmi.toInt();
     GetBMICategory(BMI);
     debugPrint("BMI Is ${BMI.toInt()}");
-    debugPrint("BMI Category ${bmicategory}");
-    debugPrint("BMI Suggestion ${BMISuggestions}");
+    debugPrint("BMI Category $bmicategory");
+    debugPrint("BMI Suggestion $BMISuggestions");
     notifyListeners();
 
 
     // Add BMI TO HiveDatabase
-    String date = "${DateTime.now().day}/${month}/${DateTime.now().year}";
-    print("Current Date Is ${date}");
+    String date = "${DateTime.now().day}/$month/${DateTime.now().year}";
+    print("Current Date Is $date");
     UserData data =UserData(date: date, bmi: BMI.toDouble());
 
 
@@ -245,7 +255,7 @@ class HomeScreenProvider with ChangeNotifier{
         break;
     }
     notifyListeners();
-    debugPrint("Category Passes Is ${bmicategory}");
+    debugPrint("Category Passes Is $bmicategory");
     GetBMISuggestions(bmicategory);
     return bmicategory;
   }

@@ -11,7 +11,7 @@ class Dietplansscreen extends StatefulWidget {
   String weight;
   String age;
   String result;
-  Dietplansscreen({
+  Dietplansscreen({super.key, 
     required this.BMI,
     required this.height,
     required this.weight,
@@ -26,8 +26,8 @@ class Dietplansscreen extends StatefulWidget {
 class _DietplansscreenState extends State<Dietplansscreen> {
   NetworkService service = NetworkService();
 
-  List<Map<String, String>> _messages = []; // To store messages from bot and user
-  TextEditingController _controller = TextEditingController();
+  final List<Map<String, String>> _messages = []; // To store messages from bot and user
+  final TextEditingController _controller = TextEditingController();
   bool _showTextField = false; // Controls the visibility of the TextField
   String _userName = ""; // Store user input name
   bool _askedDietPreference = false; // Whether diet preference has been asked
@@ -50,7 +50,7 @@ class _DietplansscreenState extends State<Dietplansscreen> {
     String message;
     if (service.isusernamepresent) {
       // If username exists in the service
-      _userName =service.username!;
+      _userName =service.username;
       message = "Hi $_userName, Welcome Back";
       _askDietPreference();
     } else {
@@ -126,10 +126,10 @@ class _DietplansscreenState extends State<Dietplansscreen> {
 
   // Function to make an API call for the diet plan based on user data
   void _fetchDietPlan() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     showDialog(context: context, builder: (context){
-      return Center(child: CustomLoadingIcon());
+      return const Center(child: CustomLoadingIcon());
     });
     String FinalDiet ="";
     if(widget.result=="Underweight"){
@@ -156,16 +156,16 @@ class _DietplansscreenState extends State<Dietplansscreen> {
         "Received Data: \nBMI: ${widget.BMI}\nHeight: ${widget.height}\nWeight: ${widget.weight}\nAge: ${widget.age}\nResult: ${widget.result}");
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF21232F),
+        backgroundColor: const Color(0xFF21232F),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Text(
+        title: const Text(
           "Welcome to Diet Planner",
           style: AppStyles.titlestyle,
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image:AssetImage("Assets/Images/diet_plan.jpg"), fit: BoxFit.cover),
         ),
@@ -183,7 +183,7 @@ class _DietplansscreenState extends State<Dietplansscreen> {
                           ? Alignment.centerRight
                           : Alignment.centerLeft,
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: message['sender'] == 'user'
                               ? Colors.blue[100]
@@ -217,7 +217,7 @@ class _DietplansscreenState extends State<Dietplansscreen> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.send,
                         color: Colors.white,
                       ),

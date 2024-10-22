@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class BotScreen extends StatefulWidget {
+  const BotScreen({super.key});
+
   @override
   _BotScreenState createState() => _BotScreenState();
 }
 
 class _BotScreenState extends State<BotScreen> {
-  List<Map<String, String>> _messages = [];  // To store messages from bot and user
-  TextEditingController _controller = TextEditingController();
+  final List<Map<String, String>> _messages = [];  // To store messages from bot and user
+  final TextEditingController _controller = TextEditingController();
   bool _showTextField = false;  // Controls the visibility of the TextField
   String _userName = "";
 
@@ -37,7 +39,7 @@ class _BotScreenState extends State<BotScreen> {
 
       if (_userName.isEmpty) {
         _userName = input;  // Store the user's name
-        Future.delayed(Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 500), () {
           _botSendMessage("Nice to meet you, $_userName! How can I assist you today?");
         });
       }
@@ -48,7 +50,7 @@ class _BotScreenState extends State<BotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bot Interaction'),
+        title: const Text('Bot Interaction'),
       ),
       body: Column(
         children: [
@@ -64,7 +66,7 @@ class _BotScreenState extends State<BotScreen> {
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: message['sender'] == 'user'
                             ? Colors.blue[100]
@@ -94,7 +96,7 @@ class _BotScreenState extends State<BotScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.send),
+                    icon: const Icon(Icons.send),
                     onPressed: _handleUserInput,
                   ),
                 ],

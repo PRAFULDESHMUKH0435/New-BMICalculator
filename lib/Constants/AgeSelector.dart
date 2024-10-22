@@ -52,6 +52,8 @@ import 'package:provider/provider.dart';
 import '../Providers/HomeScreenProvider.dart';
 
 class AgeSelector extends StatefulWidget {
+  const AgeSelector({super.key});
+
   @override
   _AgeSelectorState createState() => _AgeSelectorState();
 }
@@ -60,7 +62,7 @@ class _AgeSelectorState extends State<AgeSelector> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeScreenProvider>(context);
-    return Container(
+    return SizedBox(
       height: 100.0, // Adjust the height as per your design
       child: RotatedBox(
         quarterTurns: 3, // Rotate the ListWheelScrollView for horizontal scrolling
@@ -71,7 +73,7 @@ class _AgeSelectorState extends State<AgeSelector> {
           itemExtent: 50.0, // Adjust the width of each item
           perspective: 0.005, // Increase perspective for more depth
           diameterRatio: 1.5,
-          physics: FixedExtentScrollPhysics(), // Make scrolling feel like CupertinoPicker
+          physics: const FixedExtentScrollPhysics(), // Make scrolling feel like CupertinoPicker
           onSelectedItemChanged: (int index) {
             setState(() {
               provider.selectedAge = index + 1;
@@ -88,7 +90,7 @@ class _AgeSelectorState extends State<AgeSelector> {
                   quarterTurns: 1, // Rotate back the text to the original orientation
                   child: Center(
                     child: Padding(
-                      padding: EdgeInsets.only(left: 12.0),
+                      padding: const EdgeInsets.only(left: 12.0),
                       child: Text(
                         '${index + 1} yr',
                         style: TextStyle(

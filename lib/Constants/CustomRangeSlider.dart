@@ -50,6 +50,8 @@ import 'package:provider/provider.dart';
 import '../Providers/HomeScreenProvider.dart';
 
 class CustomRangeSlider extends StatefulWidget {
+  const CustomRangeSlider({super.key});
+
   @override
   _CustomRangeSliderState createState() => _CustomRangeSliderState();
 }
@@ -79,8 +81,8 @@ class _CustomRangeSliderState extends State<CustomRangeSlider> {
             color: Colors.black12,
             child: Text(
               // '${feet}\' ${inches} Ft',
-              '${feet}\' ${inches} Ft',
-              style: TextStyle(
+              '$feet\' $inches Ft',
+              style: const TextStyle(
                 fontSize: 20,
                 color: CupertinoColors.white,
                 fontWeight: FontWeight.bold,

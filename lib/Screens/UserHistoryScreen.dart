@@ -1,9 +1,5 @@
-import 'package:bmicalculator/Hive/UserData.dart';
 import 'package:bmicalculator/Providers/HomeScreenProvider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import '../Constants/styles.dart';
 class UserHistoryScreen extends StatefulWidget {
@@ -21,26 +17,26 @@ class _UserHistoryScreenState extends State<UserHistoryScreen> {
    print("Lenght ${provider.bmihistoryitems.length}");
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF21232F),
+        backgroundColor: const Color(0xFF21232F),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Text(
+        title: const Text(
           "BMI History",
           style: AppStyles.titlestyle,
         ),
       ),
-      body: provider.bmihistoryitems.length==0
+      body: provider.bmihistoryitems.isEmpty
           ?
       Center(
         child: Container(
-          margin: EdgeInsets.all(15.0),
+          margin: const EdgeInsets.all(15.0),
           height: 250,
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15.0)),
             color: Colors.grey
           ),
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
@@ -55,11 +51,11 @@ class _UserHistoryScreenState extends State<UserHistoryScreen> {
           itemCount:provider.bmihistoryitems.length,
           itemBuilder: (context,index){
             return Card(
-              color: Color(0xFF0540CA),
+              color: const Color(0xFF0540CA),
               elevation: 4.0,
-              margin: EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8.0),
               child: ListTile(
-                leading: Icon(Icons.fitness_center,color: Colors.white,),
+                leading: const Icon(Icons.fitness_center,color: Colors.white,),
                 title: Text(provider.bmihistoryitems[index].date.toString(),style: AppStyles.historydatestyle,),
                 subtitle: Text("BMI : ${provider.bmihistoryitems[index].bmi.toString()}",style: AppStyles.historybmistyle),
               ),
