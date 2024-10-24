@@ -8,10 +8,7 @@ import 'package:bmicalculator/Constants/styles.dart';
 import 'package:bmicalculator/Screens/AboutUsScreen.dart';
 import 'package:bmicalculator/Screens/DietPlansScreen.dart';
 import 'package:bmicalculator/Screens/UserHistoryScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 
@@ -23,33 +20,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  InterstitialAd? _interstitialAd;
-  bool _isAdLoaded = false;
+ 
 
   @override
   void initState() {
-    loadInterstitialAd();
+    // loadInterstitialAd();
     super.initState();
   }
 
 
-void loadInterstitialAd(){
-    InterstitialAd.load(
-      adUnitId: 'ca-app-pub-6177165685902348/4534884298', // Test ad unit ID
-      request: AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (InterstitialAd ad) {
-          _interstitialAd = ad;
-          _isAdLoaded = true;
-          print('Ad Loaded');
-        },
-        onAdFailedToLoad: (LoadAdError error) {
-          print('Ad Failed to Load: $error');
-          _isAdLoaded = false;
-        },
-      ),
-    );
-  }
+// void loadInterstitialAd(){
+//     InterstitialAd.load(
+//       adUnitId: 'ca-app-pub-6177165685902348/4534884298', // Test ad unit ID
+//       request: AdRequest(),
+//       adLoadCallback: InterstitialAdLoadCallback(
+//         onAdLoaded: (InterstitialAd ad) {
+//           _interstitialAd = ad;
+//           _isAdLoaded = true;
+//           print('Ad Loaded');
+//         },
+//         onAdFailedToLoad: (LoadAdError error) {
+//           print('Ad Failed to Load: $error');
+//           _isAdLoaded = false;
+//         },
+//       ),
+//     );
+//   }
 
 void _moveToNextScreen(BuildContext context,UserDataModel model) {
       Navigator.push(
@@ -64,31 +60,31 @@ void _moveToNextScreen(BuildContext context,UserDataModel model) {
       );
   }
 
-  void showInterstitialAd(UserDataModel usermodel) {
-    print("Inside ShowAds and AdLoaded ? ${_interstitialAd?.responseInfo.toString()}");
-    if (_isAdLoaded && _interstitialAd != null) {
-      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (InterstitialAd ad) {
-          print("Showing Ad");
-          print('Ad Dismissed');
-          loadInterstitialAd();
-          // ad.dispose(); // Dispose of the ad after showing
-          _moveToNextScreen(context,usermodel);
-        },
-        onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-          print('Ad Failed to Show: $error');
-          ad.dispose();
-          loadInterstitialAd(); // Load another ad in case of error
-          _moveToNextScreen(context,usermodel);
-        },
-      );
-      _interstitialAd!.show();
-    } else {
-      print('Ad Not Ready');
-      // You can choose to navigate to the next screen here if needed
-      _moveToNextScreen(context,usermodel);
-    }
-  }
+  // void showInterstitialAd(UserDataModel usermodel) {
+  //   print("Inside ShowAds and AdLoaded ? ${_interstitialAd?.responseInfo.toString()}");
+  //   if (_isAdLoaded && _interstitialAd != null) {
+  //     _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+  //       onAdDismissedFullScreenContent: (InterstitialAd ad) {
+  //         print("Showing Ad");
+  //         print('Ad Dismissed');
+  //         loadInterstitialAd();
+  //         // ad.dispose(); // Dispose of the ad after showing
+  //         _moveToNextScreen(context,usermodel);
+  //       },
+  //       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+  //         print('Ad Failed to Show: $error');
+  //         ad.dispose();
+  //         loadInterstitialAd(); // Load another ad in case of error
+  //         _moveToNextScreen(context,usermodel);
+  //       },
+  //     );
+  //     _interstitialAd!.show();
+  //   } else {
+  //     print('Ad Not Ready');
+  //     // You can choose to navigate to the next screen here if needed
+  //     _moveToNextScreen(context,usermodel);
+  //   }
+  // }
 
 
 
@@ -332,7 +328,8 @@ showBottomSheetForDialog(){
                       age: provider.selectedAge.toDouble().toString(),
                       result: provider.bmicategory);
 
-                  showInterstitialAd(usermodel);
+                  // showInterstitialAd(usermodel);
+                  _moveToNextScreen(context, usermodel);
                 },
                 child: const Text("Check Out Diet Plans ->",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),))
           ],

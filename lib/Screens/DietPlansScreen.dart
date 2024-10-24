@@ -1,8 +1,6 @@
 import 'package:bmicalculator/Constants/CustomLoadingIcon.dart';
 import 'package:bmicalculator/Services/DataService.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../Constants/styles.dart';
 
 class Dietplansscreen extends StatefulWidget {

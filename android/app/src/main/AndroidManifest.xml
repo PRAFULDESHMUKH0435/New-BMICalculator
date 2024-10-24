@@ -3,9 +3,6 @@
         android:label="bmicalculator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6177165685902348~3234977582"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

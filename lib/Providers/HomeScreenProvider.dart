@@ -1,9 +1,6 @@
 import 'dart:math';
 import 'package:bmicalculator/Hive/UserData.dart';
-import 'package:bmicalculator/Model/UserDataModel.dart';
-import 'package:bmicalculator/Screens/DietPlansScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 
 class HomeScreenProvider with ChangeNotifier{
@@ -114,13 +111,7 @@ class HomeScreenProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  InterstitialAd? _interstitialAd ;
-  bool _isAdLoaded = false;
-  bool get isAdLoaded => _isAdLoaded;
-  set isAdLoaded(bool value) {
-    _isAdLoaded = value;
-    notifyListeners();
-  }
+  
 
   // void _moveToNextScreen(BuildContext context,UserDataModel model) {
   //     Navigator.push(
@@ -135,50 +126,9 @@ class HomeScreenProvider with ChangeNotifier{
   //     );
   // }
 
-void loadInterstitialAd(){
-    InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Test ad unit ID
-      request: AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (InterstitialAd ad) {
-          _interstitialAd = ad;
-          _isAdLoaded = true;
-          print('Ad Loaded');
-          notifyListeners();
-        },
-        onAdFailedToLoad: (LoadAdError error) {
-          print('Ad Failed to Load: $error');
-          _isAdLoaded = false;
-          notifyListeners();
-        },
-      ),
-    );
-  }
 
 
-  void showInterstitialAd() {
-    print("Inside ShowAds and AdLoaded ? ${_interstitialAd?.responseInfo.toString()}");
-    if (_isAdLoaded && _interstitialAd != null) {
-      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (InterstitialAd ad) {
-          print("Showing Ad");
-          print('Ad Dismissed');
-          ad.dispose(); // Dispose of the ad after showing
-          loadInterstitialAd(); // Load another ad
-        },
-        onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-          print('Ad Failed to Show: $error');
-          ad.dispose();
-          loadInterstitialAd(); // Load another ad in case of error
-        },
-      );
-      _interstitialAd!.show();
-    } else {
-      print('Ad Not Ready');
-      // You can choose to navigate to the next screen here if needed
-    }
-  }
-
+  
 
 
   CalculateUserBMI(BuildContext context){
